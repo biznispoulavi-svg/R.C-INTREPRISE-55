@@ -1,0 +1,569 @@
+<!doctype html><html lang="ht"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0B1F4B"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>R.C INTREPRISE</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: navy header band + single column of plain sections, bottom tab bar on phones. Navy / white / gold per the founders. */
+:root{
+  --bg:#F5F6FA; --surface:#FFFFFF; --ink:#0E1B3D; --muted:#56628A; --line:#DCE1EE;
+  --navy:#0B1F4B; --navy2:#16306B; --gold:#B8862A; --gold-b:#D9AE45; --on-gold:#1A1303;
+  --ok:#1E7A4C; --warn:#9A5B00; --bad:#B3261E; --tint:#EEF1F9;
+  --f-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --f-body:'Figtree','Segoe UI',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#081126; --surface:#101B3B; --ink:#EDF0FA; --muted:#9BA8CC; --line:#25335E;
+  --gold:#E2B94E; --gold-b:#E2B94E; --ok:#4CC38A; --warn:#E5A23B; --bad:#FF8A80; --tint:#16234A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#081126; --surface:#101B3B; --ink:#EDF0FA; --muted:#9BA8CC; --line:#25335E;
+  --gold:#E2B94E; --gold-b:#E2B94E; --ok:#4CC38A; --warn:#E5A23B; --bad:#FF8A80; --tint:#16234A; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;padding-bottom:84px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--navy);z-index:30}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:1.7rem;font-weight:800}
+h2{font-size:1.2rem;font-weight:700}
+h3{font-size:1rem;font-weight:700}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{background:var(--navy);color:#fff;position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
+.top .wrap{display:flex;align-items:center;gap:12px;padding-block:10px}
+.logo{width:40px;height:40px;border-radius:10px;background:var(--gold-b);color:var(--on-gold);display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:15px;letter-spacing:.02em;flex:none}
+.brand{font-family:var(--f-display);font-weight:800;letter-spacing:.04em;font-size:1rem;line-height:1.1}
+.brand small{display:block;font-family:var(--f-body);font-weight:500;letter-spacing:0;font-size:.72rem;opacity:.75}
+.sp{flex:1}
+.chip{border:1px solid rgba(255,255,255,.35);color:#fff;background:transparent;border-radius:999px;padding:6px 12px;font:600 .78rem var(--f-body);cursor:pointer}
+.chip.on{background:var(--gold-b);color:var(--on-gold);border-color:var(--gold-b)}
+main{display:flex;flex-direction:column;gap:22px;padding-block:22px}
+.hero{background:var(--navy);color:#fff}
+.hero .wrap{padding-block:34px 30px;display:flex;flex-direction:column;gap:16px}
+.hero h1{font-size:clamp(1.9rem,7vw,2.8rem);max-width:15ch}
+.hero h1 span{color:var(--gold-b)}
+.hero p{max-width:46ch;opacity:.85}
+.lead{color:var(--muted);max-width:60ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:11px 18px;font:700 .95rem var(--f-body);cursor:pointer;background:var(--navy);color:#fff;text-decoration:none;min-height:44px}
+.btn.gold{background:var(--gold-b);color:var(--on-gold)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.small{min-height:36px;padding:6px 12px;font-size:.85rem}
+.btn.bad{background:var(--bad);color:#fff}
+.btn.ok{background:var(--ok);color:#fff}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--gold-b);outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sec{display:flex;flex-direction:column;gap:12px;min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.list{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.item{display:flex;align-items:center;gap:14px;padding:14px 16px;border-top:1px solid var(--line);text-decoration:none;min-width:0}
+.item:first-child{border-top:0}
+.item .t{flex:1;min-width:0}
+.item .t b{display:block;font-family:var(--f-display);font-size:1.02rem}
+.item .t span{color:var(--muted);font-size:.88rem}
+.item .n{font-family:var(--f-display);font-weight:800;color:var(--gold);width:28px;flex:none}
+.arrow{color:var(--gold);font-weight:800}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field label,.lbl{font-weight:600;font-size:.86rem}
+.field small{color:var(--muted)}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px;width:100%;min-width:0}
+textarea{min-height:88px;resize:vertical}
+input[type=checkbox],input[type=radio]{width:auto;min-height:0;accent-color:var(--navy2)}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:.92rem}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.76rem;font-weight:700;background:var(--tint);color:var(--muted)}
+.pill.ok{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+.pill.warn{background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)}
+.pill.bad{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.num{font-variant-numeric:tabular-nums}
+.big{font-family:var(--f-display);font-weight:800;font-size:1.6rem}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;font-variant-numeric:tabular-nums}
+th,td{padding:9px 12px;text-align:left;border-top:1px solid var(--line);white-space:nowrap}
+thead th{border-top:0;background:var(--tint);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.bar{height:10px;border-radius:99px;background:var(--tint);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--gold-b);border-radius:99px}
+.cells{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:6px}
+.cells.big200{max-height:300px;overflow:auto;padding:2px}
+.cell{aspect-ratio:1;display:grid;place-items:center;border-radius:8px;border:1.5px solid var(--line);font-size:.78rem;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.cell.paid{background:var(--gold-b);border-color:var(--gold-b);color:var(--on-gold)}
+.cell.pending{border-style:dashed;border-color:var(--gold);color:var(--gold)}
+.cell.late{border-color:var(--bad);color:var(--bad)}
+.cell.next{border-color:var(--navy2);color:var(--ink);box-shadow:0 0 0 2px var(--navy2)}
+.note{border-left:4px solid var(--gold-b);background:var(--tint);padding:10px 14px;border-radius:0 10px 10px 0;font-size:.9rem}
+.note.bad{border-color:var(--bad)}
+.muted{color:var(--muted)}
+.sm{font-size:.86rem}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--navy);z-index:25;padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs .wrap{display:flex}
+nav.tabs a{flex:1;text-align:center;color:#fff;opacity:.7;text-decoration:none;font-weight:700;font-size:.78rem;padding:12px 4px;position:relative}
+nav.tabs a.on{opacity:1;color:var(--gold-b)}
+nav.tabs a.on::after{content:"";position:absolute;left:30%;right:30%;top:0;height:3px;background:var(--gold-b);border-radius:0 0 3px 3px}
+.badge{display:inline-block;min-width:18px;padding:0 5px;border-radius:99px;background:var(--bad);color:#fff;font-size:.7rem;line-height:18px;margin-left:4px}
+.scrim{position:fixed;inset:0;background:rgba(5,10,28,.6);z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--surface);width:100%;max-width:560px;max-height:92%;overflow:auto;border-radius:18px 18px 0 0;padding:20px max(16px,env(safe-area-inset-left,0px)) calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px}
+.pay-opt{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);border-radius:12px;padding:12px;cursor:pointer}
+.pay-opt:has(input:checked){border-color:var(--navy2);background:var(--tint)}
+.pay-opt b{font-family:var(--f-display)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(90px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:.9rem;z-index:60;max-width:90%}
+.tabsx{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
+.tabsx button{flex:none;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 14px;font:700 .85rem var(--f-body);cursor:pointer}
+.tabsx button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.prod{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.prod .ph{aspect-ratio:4/3;border-radius:10px;background:var(--tint);display:grid;place-items:center;color:var(--muted);font-size:.8rem}
+.pimg{display:block;aspect-ratio:4/3;width:100%;object-fit:cover;border-radius:10px;background:var(--tint)}
+.thumbs{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
+.thumbs img{width:56px;height:56px;object-fit:cover;border-radius:8px;border:2px solid transparent;cursor:pointer;flex:none}
+.thumbs img.on{border-color:var(--gold-b)}
+.ap{display:flex;gap:10px;flex-wrap:wrap}
+.ap .th{position:relative;display:inline-block}
+.ap img{width:76px;height:76px;object-fit:cover;border-radius:8px;border:1px solid var(--line);display:block}
+.ap .x{position:absolute;top:-8px;right:-8px;width:26px;height:26px;border-radius:50%;border:0;background:var(--bad);color:#fff;font:700 16px/1 var(--f-body);cursor:pointer}
+.vh{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;clip:rect(0 0 0 0);pointer-events:none}
+.foot{color:var(--muted);font-size:.85rem;padding-block:6px 0}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:up .22s ease-out}@keyframes up{from{transform:translateY(24px);opacity:0}}}
+</style>
+<div id="app"></div>
+<script>
+(function(){
+'use strict';
+var KEY='rc-intreprise-v1';
+var S, app=document.getElementById('app');
+var adminOn=false, regDone=false, modal=null, chTab='detay', admTab='peman', toastT=null, lastReset=null, storeCat='Tout';
+var NAT='40095873', MON='36824791', WA='36824791', WAL='https://wa.me/50936824791', ADM_TEL='40095873', ADM_HASH='0b935d2c42a02c7cc5231f250f3448819844111f751c13eb7ab13818c6fdec22';
+var CATS=['Rad fi','Rad gason','Soulye','Chosèt','Képi','Sak','Bijou','Mont','Akseswa','Lòt'];
+function shrink(file){return new Promise(function(res,rej){var u=URL.createObjectURL(file),im=new Image();im.onload=function(){var r=Math.min(1,800/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*r));c.height=Math.max(1,Math.round(im.height*r));c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',0.62))};im.onerror=function(){URL.revokeObjectURL(u);rej(new Error('img'))};im.src=u})}
+var storageOk=(function(){try{localStorage.setItem('rc-test','1');localStorage.removeItem('rc-test');return true}catch(e){return false}})();
+var ON_CLAUDE=(location.hostname.indexOf('claude')>-1||!/^https?:$/.test(location.protocol));
+var SHARE_URL=ON_CLAUDE?'https://claude.ai/artifact/5Hgbbkft2rTfM5W24AEN3g':location.href.split('#')[0];
+var BR=[
+ {k:'epargne',n:'Épargne Plus',d:'Pwogram 45 jou. Plan 10, 25 oswa 50 Gdes.'},
+ {k:'carnet',n:'Carnet Épargne',d:'200 kare. Ou chwazi valè chak kare.'},
+ {k:'saveurs',n:'Maison des Saveurs',d:'Machandiz pou komèsan, Pen ak ze ak lòt pwojè.'},
+ {k:'chedoo',n:'Chedoo Chips',d:'Chips an gwo ak an detay. Livrezon nan Gonaïves.'},
+ {k:'store',n:'Élégant Store',d:'Rad, soulye, sak, bijou ak akseswa.'},
+ {k:'delivery',n:'Delivery',d:'Swiv kòmand ou yo ak livrezon yo.'}
+];
+var SEED_PROD=[
+ {id:'p1',name:'T-shirt klasik',cat:'Rad gason',price:750,sizes:'M,L,XL',colors:'Blan,Nwa,Ble',stock:20,sample:true},
+ {id:'p2',name:'Wòb ete',cat:'Rad fi',price:1800,sizes:'S,M,L',colors:'Wouj,Ble,Vèt',stock:8,sample:true},
+ {id:'p3',name:'Baskets',cat:'Soulye',price:3500,sizes:'40,41,42,43',colors:'Blan,Nwa',stock:10,sample:true},
+ {id:'p4',name:'Sak a men',cat:'Sak',price:2200,sizes:'',colors:'Nwa,Mawon',stock:6,sample:true}
+];
+function seed(){return {v:1,clients:[],session:null,adminPin:null,payments:[],carnets:[],orders:[],requests:[],products:SEED_PROD.slice(),cart:[],audit:[],notes:[],seq:{c:1,p:1,k:1,o:1,r:1},settings:{pct:33.3333,fee:0}}}
+function load(){try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}if(!S||!S.v)S=seed()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));return true}catch(e){return false}}
+load();
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function fmt(n){return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' G'}
+function dstr(i){return new Date(i).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'})}
+function addDays(iso,n){var d=new Date(iso);d.setHours(12,0,0,0);d.setDate(d.getDate()+n);return d.toISOString()}
+function dayKey(iso){var d=new Date(iso);return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate()}
+function uid(k){return S.seq[k]++}
+function pad(n,w){return String(n).padStart(w,'0')}
+function me(){return S.clients.find(function(c){return c.id===S.session})||null}
+function cname(id){var c=S.clients.find(function(x){return x.id===id});return c?c.prenom+' '+c.nom:'—'}
+function note(cid,t){S.notes.unshift({cid:cid,t:new Date().toISOString(),text:t})}
+function audit(t){S.audit.unshift({t:new Date().toISOString(),text:t})}
+function route(){var h=(location.hash||'').slice(1);return h||'akey'}
+function toast(t){clearTimeout(toastT);var e=document.querySelector('.toast');if(e)e.remove();e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);toastT=setTimeout(function(){e.remove()},2600)}
+async function sha(t){try{var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rc:'+t));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('')}catch(e){return 'p:'+btoa(unescape(encodeURIComponent(t)))}}
+function digits(s){return String(s||'').replace(/\D/g,'')}
+
+/* ---------- carnet logic ---------- */
+function def(c){
+ if(c.type==='epargne')return{n:45,fee:500,amt:function(i){return i*c.plan},kind:'day',name:'Épargne Plus',branch:'epargne',unit:'Jou'};
+ if(c.type==='epay')return{n:200,fee:0,amt:function(){return c.value},kind:'case',name:'Carnet Épargne',branch:'carnet',unit:'Kare'};
+ return{n:15,fee:1500,amt:function(){return 1500},kind:'wk',name:'Pen ak ze',branch:'saveurs',unit:'Samdi'}
+}
+function st(c,i){var a=S.payments.filter(function(p){return p.carnetId===c.id&&p.kind!=='order'&&p.index!=null&&i>=p.index&&i<p.index+(p.count||1)});
+ return a.some(function(p){return p.status==='valid'})?'valid':a.some(function(p){return p.status==='pending'})?'pending':'none'}
+function nextStep(c){var D=def(c);for(var i=D.fee?0:1;i<=D.n;i++){var s=st(c,i);if(s==='valid')continue;return{i:i,s:s,amt:i===0?D.fee:D.amt(i)}}return null}
+function validCount(c){var D=def(c),k=0;for(var i=1;i<=D.n;i++)if(st(c,i)==='valid')k++;return k}
+function paidSum(c){var D=def(c),t=0;for(var i=1;i<=D.n;i++)if(st(c,i)==='valid')t+=D.amt(i);return t}
+function totalSum(c){var D=def(c),t=0;for(var i=1;i<=D.n;i++)t+=D.amt(i);return t}
+function feeDate(c){var p=S.payments.find(function(p){return p.carnetId===c.id&&p.index===0&&p.status==='valid'&&p.kind!=='order'});return p?p.validatedAt:null}
+function dateFor(c,i){var f=feeDate(c);if(!f)return null;var s=addDays(f,1);
+ if(c.type==='epargne')return addDays(s,i-1);
+ if(c.type==='pen'){var d=new Date(s);d.setHours(12,0,0,0);var add=(6-d.getDay()+7)%7;return addDays(s,add+(i-1)*7)}
+ return null}
+function stepsFor(c,i,amount){var D=def(c),n=0,t=0;for(var k=i;k<=D.n;k++){t+=D.amt(k);if(t<=amount)n++;else break}return Math.max(1,n)}
+function costFor(c,i,count){var D=def(c),t=0;for(var k=i;k<i+count&&k<=D.n;k++)t+=D.amt(k);return t}
+function rangeLabel(c,p){var cnt=p.count||1;if(p.index===0||cnt<=1)return stepLabel(c,p.index);return def(c).unit.toLowerCase()+' '+p.index+' a '+(p.index+cnt-1)}
+function estText(x,amount){var c=S.carnets.find(function(c){return c.id===x.carnetId}),n=stepsFor(c,x.index,amount);return 'Sa fè apeprè <b>'+n+' '+x.unit+'</b> ('+x.index+(n>1?' a '+(x.index+n-1):'')+'). Administratè a konfime kantite a.'}
+function cntField(p){var c=S.carnets.find(function(c){return c.id===p.carnetId});if(p.kind==='order'||!c||c.type==='pen'||p.index===0)return '';var D=def(c),u=D.unit.toLowerCase();return '<div class="field"><label for="cnt-'+p.id+'">Kantite '+u+' kliyan an peye</label><input id="cnt-'+p.id+'" type="number" min="1" max="'+(D.n-p.index+1)+'" value="'+(p.count||1)+'"><small>Kliyan an voye '+fmt(p.amount)+', li kòmanse nan '+u+' '+p.index+'. Chanje kantite a si li pa koresponn.</small></div>'}
+function stepLabel(c,i){var D=def(c);return i===0?'frè enskripsyon '+D.name:D.unit.toLowerCase()+' '+i}
+function myCarnets(t){return S.carnets.filter(function(c){return c.clientId===S.session&&(!t||c.type===t)})}
+
+/* ---------- views ---------- */
+function needLogin(){return '<div class="note">Ou dwe konekte pou itilize sèvis sa a. <a href="#kont"><b>Konekte oswa enskri</b></a>.</div>'}
+function planTable(){
+ var r=[10,25,50].map(function(p){var t=p*45*46/2;return '<tr><td><b>'+p+' G</b></td><td>'+p+' G</td><td>'+(p*2)+' G</td><td>'+fmt(p*45)+'</td><td>'+fmt(t)+'</td><td>'+fmt(p*1000)+'</td><td>'+fmt(t-p*1000)+'</td></tr>'}).join('');
+ return '<div class="tbl"><table><thead><tr><th>Plan</th><th>Jou 1</th><th>Jou 2</th><th>Jou 45</th><th>Total ou peye</th><th>Ou resevwa</th><th>Diferans</th></tr></thead><tbody>'+r+'</tbody></table></div>'
+}
+function statusPill(s){return s==='valid'?'<span class="pill ok">Valide</span>':s==='pending'?'<span class="pill warn">An atant validasyon</span>':'<span class="pill bad">Refize</span>'}
+function payBtn(c){
+ var n=nextStep(c);if(!n)return '';
+ if(n.s==='pending')return '<button class="btn" disabled>Peman an atant validasyon</button>';
+ return '<button class="btn gold" data-act="pay" data-kind="carnet" data-cid="'+c.id+'" data-idx="'+n.i+'" data-amt="'+n.amt+'">Peye '+esc(stepLabel(c,n.i))+' · '+fmt(n.amt)+'</button>'
+}
+function carnetCard(c){
+ var D=def(c),vc=validCount(c),n=nextStep(c),f=feeDate(c),today=new Date().toISOString();
+ var h='<div class="card"><div class="row"><h3 style="flex:1">'+D.name+(c.type==='epargne'?' · plan '+c.plan+' G':c.type==='epay'?' · '+c.value+' G pa kare':'')+'</h3><span class="muted sm">Kanè #'+c.id+'</span></div>';
+ if(D.fee&&st(c,0)!=='valid'){
+  h+='<div class="note">'+(st(c,0)==='pending'?'An atant validasyon. Administratè a ap verifye frè enskripsyon an ('+fmt(D.fee)+').':'Frè enskripsyon an ('+fmt(D.fee)+') poko peye. Kanè a ap aktive apre administratè a valide li.')+'</div>';
+  h+='<div>'+payBtn(c)+'</div></div>';return h
+ }
+ if(D.fee){var s=dateFor(c,1),e=dateFor(c,D.n);h+='<div class="sm muted">Kòmansman: <b>'+dstr(s)+'</b> · Dènye jou: <b>'+dstr(e)+'</b></div>'}
+ h+='<div><div class="row sm" style="justify-content:space-between"><b class="num">'+vc+' / '+D.n+'</b><span class="muted">'+Math.round(vc/D.n*100)+'%</span></div><div class="bar"><i style="width:'+(vc/D.n*100)+'%"></i></div></div>';
+ h+='<div class="grid2"><div><div class="muted sm">Total peye</div><div class="big num">'+fmt(paidSum(c))+'</div></div><div><div class="muted sm">Balans ki rete</div><div class="big num">'+fmt(totalSum(c)-paidSum(c))+'</div></div></div>';
+ var cells='';for(var i=1;i<=D.n;i++){var s2=st(c,i),dt=dateFor(c,i),cls='cell';
+  if(s2==='valid')cls+=' paid';else if(s2==='pending')cls+=' pending';else if(dt&&dayKey(dt)<dayKey(today))cls+=' late';
+  if(n&&n.i===i&&s2!=='valid')cls+=' next';
+  cells+='<div class="'+cls+'" title="'+esc(stepLabel(c,i)+(dt?' · '+dstr(dt):''))+'">'+i+'</div>'}
+ h+='<div class="cells'+(D.n>60?' big200':'')+'">'+cells+'</div>';
+ h+='<div class="row sm muted"><span><b style="color:var(--gold)">■</b> peye</span><span>▫ an atant</span><span style="color:var(--bad)">▫ Poko peye</span></div>';
+ if(c.type==='epay'){var tot=totalSum(c);h+='<div class="sm muted">Total 200 kare: '+fmt(tot)+' · Komisyon R.C INTREPRISE 10% (yon sèl fwa): '+fmt(tot*0.1)+' · Apre komisyon: '+fmt(tot*0.9)+'</div>'}
+ if(c.type==='pen'){h+=vc===D.n?'<div class="note"><b>Bonus fidélité 5 000 G disponib.</b> Ou fin peye 15 samdi yo.</div>':'<div class="note">Bonus fidélité 5 000 G: li disponib sèlman apre ou fin peye 15 samdi yo ('+(D.n-vc)+' rete).</div>'}
+ if(c.type==='epargne'&&vc===D.n)h+='<div class="note">Pwogram nan fini. Ou dwe resevwa '+fmt(c.plan*1000)+' selon kondisyon yo.</div>';
+ if(n&&n.i>0)h+='<div>'+payBtn(c)+'</div>';
+ var hist=S.payments.filter(function(p){return p.carnetId===c.id&&p.kind!=='order'}).sort(function(a,b){return b.createdAt<a.createdAt?-1:1});
+ if(hist.length)h+='<details><summary class="sm"><b>Istorik ('+hist.length+')</b></summary><div class="sec" style="margin-top:8px">'+hist.map(function(p){return '<div class="row sm" style="justify-content:space-between"><span>'+esc(rangeLabel(c,p))+' · '+fmt(p.amount)+' · '+dstr(p.createdAt)+'</span>'+statusPill(p.status)+'</div>'}).join('')+'</div></details>';
+ return h+'</div>'
+}
+function vAkey(){
+ var m=me();
+ var h='<section class="hero"><div class="wrap"><div class="muted sm" style="color:var(--gold-b);font-weight:700;letter-spacing:.08em">GONAÏVES · ARTIBONITE · AYITI</div><h1>Yon sèl konpayi. <span>Yon sèl platfòm.</span> Plizyè sèvis.</h1><p>R.C INTREPRISE rasanble epay, komès, chips, mòd ak livrezon sou yon sèl kont.</p><div class="row">'+(m?'<a class="btn gold" href="#kont">Kont mwen</a>':'<a class="btn gold" href="#kont">Enskri oswa konekte</a>')+'<a class="btn" style="background:transparent;border:1.5px solid rgba(255,255,255,.4)" href="#peman">Kijan pou peye</a></div></div></section>';
+ h+='<div class="wrap"><main><div class="sec"><h2>Sèvis nou yo</h2><div class="list">'+BR.map(function(b,i){return '<a class="item" href="#'+b.k+'"><span class="n">'+(i+1)+'</span><span class="t"><b>'+b.n+'</b><span>'+b.d+'</span></span><span class="arrow">→</span></a>'}).join('')+'</div></div>';
+ h+='<div class="card"><h3>Fondatè</h3><p>Roudeley Exantus ak Chettelande Hérard</p><p class="muted sm">Trousab, Gonaïves, Artibonite, Ayiti</p><div class="row"><a class="btn ghost small" href="'+WAL+'" target="_blank" rel="noopener">WhatsApp</a><span class="num">'+WA+'</span></div></div>';
+ h+='<div class="card"><h3>Pataje sit la</h3><p class="sm muted">Voye lyen sit la bay moun ou vle.</p><div class="row"><button class="btn gold small" data-act="share">Kopye lyen an</button><a class="btn ghost small" href="https://wa.me/?text='+encodeURIComponent('R.C INTREPRISE: '+SHARE_URL)+'" target="_blank" rel="noopener">Voye sou WhatsApp</a></div><p class="sm num" style="word-break:break-all">'+esc(SHARE_URL)+'</p>'+(ON_CLAUDE?'<p class="sm muted">Lyen sa a mande yon kont Claude. Pou yon lyen piblik, mete fichye sit la sou GitHub Pages: lè sa a, bouton sa a ap kopye lyen piblik la.</p>':'')+'</div>';
+ h+='<p class="foot">Vèsyon demo: done yo sove sou aparèy sa a sèlman. Kont, peman ak kòmand yo pa pataje ak lòt telefòn ankò.</p></main></div>';
+ return h
+}
+function vKont(){
+ var m=me(),h='<div class="wrap"><main>';
+ if(!m&&adminOn)return h+'<h1>Administratè</h1><div class="card"><p>Ou konekte kòm administratè.</p><div class="row"><a class="btn gold" href="#admin">Ale nan tablo a</a><button class="btn ghost" data-act="adm">Dekonekte</button></div></div></main></div>';
+ if(!m){
+  h+='<h1>Kont mwen</h1><div class="tabsx"><button class="'+(kTab==='log'?'on':'')+'" data-act="ktab" data-v="log">Konekte</button><button class="'+(kTab==='reg'?'on':'')+'" data-act="ktab" data-v="reg">Enskri</button></div>';
+  if(kTab==='log'){
+   if(regDone)h+='<div class="note"><b>Demann enskripsyon ou voye.</b> Administratè a ap voye yon kòd sekrè ba ou. Antre l isit la lè w resevwa l.</div>';
+   h+='<form class="card" data-form="login"><div class="field"><label for="l-tel">Nimewo telefòn</label><input id="l-tel" name="tel" inputmode="tel" autocomplete="tel" required></div><div class="field"><label for="l-cd">Kòd sekrè</label><input id="l-cd" name="code" type="password" autocomplete="off" required></div><button class="btn gold">Konekte</button><p class="muted sm">Ou poko gen kòd sekrè? Enskri dabò. Administratè a ap voye l ba ou. Ou ka kontakte nou sou WhatsApp: <b class="num">'+WA+'</b>.</p></form>'
+  }else h+='<form class="card" data-form="register"><div class="grid2"><div class="field"><label for="r-p">Prenon</label><input id="r-p" name="prenom" autocomplete="given-name" required></div><div class="field"><label for="r-n">Non</label><input id="r-n" name="nom" autocomplete="family-name" required></div></div><div class="field"><label for="r-a">Adrès</label><input id="r-a" name="adr" autocomplete="street-address" required></div><div class="field"><label for="r-t">Nimewo telefòn</label><input id="r-t" name="tel" inputmode="tel" autocomplete="tel" required></div><details class="sm"><summary><b>Kondisyon yo</b></summary><p style="margin-top:8px">Yon peman konte sèlman apre administratè a verifye tranzaksyon an. Nan Épargne Plus, total ou peye a pi gran pase montan ou resevwa a (egzanp plan 10 G: 10 350 G peye, 10 000 G resevwa). Nan Carnet Épargne, R.C INTREPRISE pran 10% komisyon yon sèl fwa. Bonus Pen ak ze a bay sèlman apre 15 samdi peye.</p></details><button class="btn gold">Voye demann enskripsyon</button><p class="muted sm">Apre sa, administratè a ap voye yon kòd sekrè ba ou pou w ka konekte.</p></form>';
+  return h+'</main></div>'
+ }
+ h+='<div class="row"><h1 style="flex:1">Bonjou, '+esc(m.prenom)+'</h1><span class="pill">'+m.num+'</span></div>';
+ h+='<div class="card"><div class="sm"><b>'+esc(m.prenom+' '+m.nom)+'</b> · '+esc(m.tel)+'</div><div class="sm muted">'+esc(m.adr)+'</div><div class="row"><a class="btn ghost small" href="'+WAL+'" target="_blank" rel="noopener">Sipò WhatsApp</a><button class="btn ghost small" data-act="logout">Dekonekte</button></div></div>';
+ var cs=myCarnets();h+='<div class="sec"><h2>Kanè mwen yo</h2>'+(cs.length?cs.map(carnetCard).join(''):'<div class="note">Ou poko gen kanè. Chwazi yon sèvis: <a href="#epargne"><b>Épargne Plus</b></a>, <a href="#carnet"><b>Carnet Épargne</b></a> oswa <a href="#saveurs"><b>Maison des Saveurs</b></a>.</div>')+'</div>';
+ var os=S.orders.filter(function(o){return o.clientId===m.id});
+ h+='<div class="sec"><h2>Kòmand mwen yo</h2>'+(os.length?os.map(orderCard).join(''):'<p class="muted">Pa gen kòmand ankò.</p>')+'</div>';
+ var ns=S.notes.filter(function(n){return n.cid===m.id}).slice(0,8);
+ h+='<div class="sec"><h2>Notifikasyon</h2>'+(ns.length?'<div class="list">'+ns.map(function(n){return '<div class="item"><span class="t"><b style="font-size:.95rem">'+esc(n.text)+'</b><span>'+dstr(n.t)+'</span></span></div>'}).join('')+'</div>':'<p class="muted">Pa gen notifikasyon.</p>')+'</div>';
+ return h+'</main></div>'
+}
+var kTab='log';
+function orderCard(o){
+ var pend=S.payments.some(function(p){return p.orderId===o.id&&p.status==='pending'});
+ var ST={nouvo:'Nouvo kòmand',valide:'Valide',preparasyon:'An preparasyon',afekte:'Afekte a yon livrè',livrezon:'An livrezon',livre:'Livre',anile:'Anile'};
+ var h='<div class="card"><div class="row"><b style="flex:1">Kòmand #'+o.id+' · '+(o.branch==='chedoo'?'Chedoo Chips':'Élégant Store')+'</b><span class="pill '+(o.status==='livre'?'ok':o.status==='anile'?'bad':'warn')+'">'+ST[o.status]+'</span></div>';
+ h+='<div class="sm">'+o.items.map(function(i){return esc(i.qty+'× '+i.name+(i.opt?' ('+i.opt+')':''))}).join('<br>')+'</div>';
+ h+='<div class="sm muted">Total: <b class="num">'+fmt(o.total)+'</b> · '+(o.mode==='davans'?(o.paid?'Peye':'Peman davans'):'Peye lè w resevwa')+' · '+esc(o.adr)+'</div>';
+ if(o.driver)h+='<div class="sm muted">Livrè: '+esc(o.driver)+'</div>';
+ if(o.mode==='davans'&&!o.paid&&o.status!=='anile')h+=pend?'<button class="btn" disabled>Peman an atant validasyon</button>':'<button class="btn gold small" data-act="pay" data-kind="order" data-oid="'+o.id+'" data-amt="'+o.total+'">Peye '+fmt(o.total)+'</button>';
+ return h+'</div>'
+}
+function vEpargne(){
+ var m=me(),h='<div class="wrap"><main><h1>Épargne Plus</h1><p class="lead">Pwogram 45 jou. Ou peye chak jou, epi montan an ogmante chak jou (jou N = N × plan ou a). Jou ou enskri a pa konte kòm jou 1.</p>'+planTable();
+ h+='<div class="note">Frè enskripsyon: <b>500 G</b>. Diferans ant sa ou peye ak sa ou resevwa a parèt klè nan tablo a ak nan kondisyon yo.</div>';
+ if(!m)return h+needLogin()+'</main></div>';
+ var cs=myCarnets('epargne');
+ h+=cs.map(carnetCard).join('');
+ h+='<form class="card" data-form="start-ep"><h3>Kòmanse yon nouvo pwogram</h3><div class="field"><label for="ep-p">Plan</label><select id="ep-p" name="plan"><option value="10">Plan 10 G → resevwa 10 000 G</option><option value="25">Plan 25 G → resevwa 25 000 G</option><option value="50">Plan 50 G → resevwa 50 000 G</option></select></div>'+'<button class="btn gold">Kòmanse epi peye 500 G</button></form>';
+ return h+'</main></div>'
+}
+function vCarnet(){
+ var m=me(),h='<div class="wrap"><main><h1>Carnet Épargne</h1><p class="lead">Yon kanè pèsonèl ak 200 kare. Ou chwazi valè chak kare. Ou ranpli kare yo nan lòd, kòmanse ak kare 1, epi ou pa ka sote youn. Kare ki pwochen an louvri sèlman apre administratè a valide kare anvan an.</p>';
+ h+='<div class="tbl"><table><thead><tr><th>Valè kare</th><th>Total 200 kare</th><th>Komisyon 10%</th><th>Apre komisyon</th></tr></thead><tbody>'+[50,100,150,200,250].map(function(v){var t=v*200;return '<tr><td><b>'+v+' G</b></td><td>'+fmt(t)+'</td><td>'+fmt(t*.1)+'</td><td>'+fmt(t*.9)+'</td></tr>'}).join('')+'</tbody></table></div>';
+ if(!m)return h+needLogin()+'</main></div>';
+ h+=myCarnets('epay').map(carnetCard).join('');
+ h+='<form class="card" data-form="start-epay"><h3>Louvri yon nouvo kanè</h3><div class="field"><label for="cp-v">Valè chak kare</label><select id="cp-v" name="v">'+[50,100,150,200,250].map(function(v){return '<option value="'+v+'">'+v+' G</option>'}).join('')+'</select></div>'+'<button class="btn gold">Kreye kanè a</button></form>';
+ return h+'</main></div>'
+}
+function reqCard(r){
+ var T={sav:'Demann pwodwi',idea:'Lide biznis'};
+ var h='<div class="card"><div class="row"><b style="flex:1">'+T[r.type]+' #'+r.id+'</b><span class="pill '+(r.status==='aksepte'?'ok':r.status==='refize'?'bad':'warn')+'">'+({nouvo:'An atant',repons:'Repons administratè a',aksepte:'Aksepte',refize:'Refize'})[r.status]+'</span></div><div class="sm">'+esc(r.text)+'</div>';
+ if(r.reply)h+='<div class="note sm"><b>Administratè a:</b> '+esc(r.reply)+'</div>';
+ if(r.status==='repons'&&r.clientId===S.session)h+='<div class="row"><button class="btn ok small" data-act="req-ans" data-id="'+r.id+'" data-v="aksepte">Mwen aksepte</button><button class="btn ghost small" data-act="req-ans" data-id="'+r.id+'" data-v="refize">Mwen refize</button></div>';
+ return h+'</div>'
+}
+function vSaveurs(){
+ var m=me(),h='<div class="wrap"><main><h1>Maison des Saveurs</h1><p class="lead">Nou ba ou machandiz ak materyèl pou ou kòmanse yon ti komès. Pwodwi yo: pen ak ze, fresko, pica pollo, pikatchou, ji, bwason ak lòt pwodwi alimantè.</p>';
+ h+='<div class="card"><h2>Pwogram Pen ak ze</h2><div class="tbl"><table><tbody><tr><td>Frè enskripsyon (obligatwa)</td><td><b>1 500 G</b></td></tr><tr><td>Peman chak samdi</td><td><b>1 500 G</b></td></tr><tr><td>Dire</td><td><b>15 samdi</b></td></tr><tr><td>Total 15 peman</td><td><b>22 500 G</b></td></tr><tr><td>Bonus fidélité</td><td><b>5 000 G</b></td></tr></tbody></table></div><p class="sm muted">Apre enskripsyon an, ou resevwa tout pwodwi pou kòmanse. Bonus la bay sèlman apre ou fin peye 15 samdi yo.</p></div>';
+ if(!m)return h+needLogin()+'</main></div>';
+ h+=myCarnets('pen').map(carnetCard).join('');
+ h+='<form class="card" data-form="start-pen"><h3>Enskri nan Pen ak ze</h3><button class="btn gold">Kòmanse epi peye 1 500 G</button></form>';
+ h+='<form class="card" data-form="req-sav"><h3>Lòt aktivite (fresko, pica pollo, pikatchou…)</h3><p class="sm muted">Ou pa enskri otomatikman nan kondisyon Pen ak ze. Administratè a egzamine demann ou epi voye kondisyon yo.</p><div class="field"><label for="sv-a">Aktivite</label><select id="sv-a" name="act"><option>Fresko</option><option>Pica pollo</option><option>Pikatchou</option><option>Ji</option><option>Bwason</option><option>Lòt</option></select></div><div class="field"><label for="sv-t">Mesaj ou</label><textarea id="sv-t" name="text" placeholder="Egzanp: mwen vle kòmanse vann fresko nan Trousab"></textarea></div><button class="btn">Voye demann nan</button></form>';
+ h+='<form class="card" data-form="idea"><h3>Pwopoze lide biznis mwen</h3><div class="field"><label for="id-t">Dekri pwojè ou</label><textarea id="id-t" name="text" required></textarea></div><div class="field"><label for="id-a">Adrès konplè</label><input id="id-a" name="adr" value="'+esc(m.adr)+'" required></div><div class="field"><label for="id-w">Nimewo WhatsApp</label><input id="id-w" name="wa" inputmode="tel" value="'+esc(m.tel)+'" required></div><p class="sm muted">Dat demann nan: '+dstr(new Date().toISOString())+'. Administratè a ap kontakte w sou WhatsApp. Frè enskripsyon 1 500 G yo obligatwa pou tout pwogram demaraj.</p><button class="btn gold">Voye lide mwen</button></form>';
+ var rs=S.requests.filter(function(r){return r.clientId===m.id});
+ if(rs.length)h+='<div class="sec"><h2>Demann mwen yo</h2>'+rs.map(reqCard).join('')+'</div>';
+ return h+'</main></div>'
+}
+function vChedoo(){
+ var m=me(),pct=S.settings.pct,h='<div class="wrap"><main><h1>Chedoo Chips</h1><p class="lead">Pwodiksyon ak vant chips. Livrezon '+(S.settings.fee?'ak frè '+fmt(S.settings.fee):'gratis')+' nan tout vil Gonaïves.</p>';
+ h+='<div class="tabsx"><button class="'+(chTab==='detay'?'on':'')+'" data-act="chtab" data-v="detay">Detay</button><button class="'+(chTab==='gwo'?'on':'')+'" data-act="chtab" data-v="gwo">Gwo ak revandè</button><button class="'+(chTab==='kalk'?'on':'')+'" data-act="chtab" data-v="kalk">Kalkilatè</button></div>';
+ if(chTab==='detay')h+='<div class="card"><h3>Vant an detay</h3><p class="sm muted">Sache 50 G ak sache 100 G.</p>'+(m?'<form class="sec" data-form="ch-order" data-mode="detay"><div class="grid2"><div class="field"><label for="cd-s">Sache</label><select id="cd-s" name="item"><option value="50">Sache 50 G</option><option value="100">Sache 100 G</option></select></div><div class="field"><label for="cd-q">Kantite</label><input id="cd-q" name="qty" type="number" min="1" value="10" required></div></div>'+chFields(m)+'<button class="btn gold">Pase kòmand</button></form>':needLogin())+'</div>';
+ if(chTab==='gwo'){
+  h+='<div class="note">Benefis revandè a se 33⅓% montan acha a (pa egzanp, ou achte 1 500 G, benefis ou se 500 G). Administratè a ka chanje pousantaj la.</div>';
+  h+='<div class="tbl"><table><thead><tr><th>Acha</th><th>Benefis</th><th>Total revant</th></tr></thead><tbody>'+[1500,3000,4500,6000,7500].map(function(a){var b=Math.round(a*pct/100);return '<tr><td><b>'+fmt(a)+'</b></td><td>'+fmt(b)+'</td><td>'+fmt(a+b)+'</td></tr>'}).join('')+'</tbody></table></div>';
+  h+='<div class="card"><h3>Achte an gwo</h3>'+(m?'<form class="sec" data-form="ch-order" data-mode="gwo"><div class="field"><label for="cg-a">Montan acha</label><select id="cg-a" name="item">'+[1500,3000,4500,6000,7500].map(function(a){return '<option value="'+a+'">'+fmt(a)+'</option>'}).join('')+'</select></div>'+chFields(m)+'<button class="btn gold">Pase kòmand</button></form>':needLogin())+'</div>'
+ }
+ if(chTab==='kalk')h+='<form class="card" data-form="calc"><h3>Kalkilatè benefis</h3><div class="grid2"><div class="field"><label for="k-p">Pwodwi</label><input id="k-p" name="prod" value="Chips"></div><div class="field"><label for="k-q">Kantite</label><input id="k-q" name="qty" type="number" min="1" value="10"></div><div class="field"><label for="k-a">Pri acha (pa youn)</label><input id="k-a" name="buy" type="number" min="0" value="50"></div><div class="field"><label for="k-v">Pri vant (pa youn)</label><input id="k-v" name="sell" type="number" min="0" value="75"></div></div><div class="note" id="kout"></div></form>';
+ return h+'</main></div>'
+}
+function chFields(m){return '<div class="field"><label for="co-a">Adrès livrezon (Gonaïves)</label><input id="co-a" name="adr" value="'+esc(m.adr)+'" required></div><div class="field"><label for="co-t">Telefòn</label><input id="co-t" name="tel" inputmode="tel" value="'+esc(m.tel)+'" required></div><div class="field"><label for="co-m">Peman</label><select id="co-m" name="mode"><option value="davans">Davans (NatCash / MonCash)</option><option value="livrezon">Lè m resevwa</option></select></div>'}
+function vStore(){
+ var m=me(),cats=['Tout'].concat(Array.from(new Set(S.products.map(function(p){return p.cat})))),h='<div class="wrap"><main><h1>Élégant Store</h1><p class="lead">Magazen pou fi ak gason: achte lokal an Ayiti ak enpòtasyon.</p>';
+ h+='<div class="tabsx">'+cats.map(function(c){return '<button class="'+(c===storeCat?'on':'')+'" data-act="scat" data-v="'+esc(c)+'">'+esc(c)+'</button>'}).join('')+'</div>';
+ var ps=S.products.filter(function(p){return storeCat==='Tout'||p.cat===storeCat});
+ h+='<div class="grid2">'+(ps.length?ps.map(function(p){return '<button class="prod" data-act="prod" data-id="'+p.id+'">'+(p.imgs&&p.imgs[0]?'<img class="pimg" src="'+p.imgs[0]+'" alt="'+esc(p.name)+'">':'<div class="ph">foto pwodwi</div>')+'<b>'+esc(p.name)+'</b><span class="num">'+fmt(p.price)+'</span><span class="sm muted">'+(p.stock>0?p.stock+' an stock':'Pa disponib')+(p.sample?' · egzanp':'')+'</span></button>'}).join(''):'<p class="muted">Pa gen pwodwi nan kategori sa a.</p>')+'</div>';
+ var cn=S.cart.reduce(function(a,i){return a+i.qty},0);
+ h+='<div class="row"><button class="btn gold" data-act="cart">Panye ('+cn+')</button></div>';
+ if(m)h+='<form class="card" data-form="store-req"><h3>Mande yon pwodwi ki pa disponib</h3><p class="sm muted">Administratè a konfime disponibilite, pri, frè enpòtasyon, delè ak kondisyon. Nou pa janm bay yon delè envante.</p><div class="field"><label for="sr-t">Ki pwodwi w vle?</label><textarea id="sr-t" name="text" required></textarea></div><button class="btn">Voye demann nan</button></form>'+S.requests.filter(function(r){return r.clientId===m.id&&r.type==='sav'&&r.store}).map(reqCard).join('');
+ return h+'</main></div>'
+}
+function vDelivery(){
+ var m=me(),h='<div class="wrap"><main><h1>Delivery</h1><p class="lead">Ekip R.C INTREPRISE livre kòmand yo, okòmansman nan Gonaïves. Swiv estati kòmand ou yo isit la.</p>';
+ if(!m)return h+needLogin()+'</main></div>';
+ var os=S.orders.filter(function(o){return o.clientId===m.id});
+ h+=os.length?os.map(orderCard).join(''):'<div class="note">Ou poko gen kòmand. Pase youn nan <a href="#chedoo"><b>Chedoo Chips</b></a> oswa <a href="#store"><b>Élégant Store</b></a>.</div>';
+ return h+'</main></div>'
+}
+function vPeman(){
+ var m=me(),h='<div class="wrap"><main><h1>Peman</h1><p class="lead">Fè transfè a, epi konfime peman an ak kòd sekrè administratè a te voye ba ou. Administratè a verifye anvan peman an valide. Pa gen konfimasyon otomatik.</p><div class="note"><b>N.B.</b> Si w voye lajan an, men ou pa konfime l ak kòd sekrè ou, peman an poko valide.</div>';
+ h+='<div class="grid2"><div class="card"><h3>NatCash</h3><div class="big num">'+NAT+'</div><button class="btn ghost small" data-act="copy" data-v="'+NAT+'">Kopye nimewo</button></div><div class="card"><h3>MonCash</h3><div class="big num">'+MON+'</div><button class="btn ghost small" data-act="copy" data-v="'+MON+'">Kopye nimewo</button></div></div>';
+ if(!m)return h+needLogin()+'</main></div>';
+ var due=[];
+ myCarnets().forEach(function(c){var n=nextStep(c);if(n)due.push('<div class="row"><span class="sm" style="flex:1">'+def(c).name+': '+esc(stepLabel(c,n.i))+' · <b>'+fmt(n.amt)+'</b></span>'+(n.s==='pending'?'<span class="pill warn">An atant</span>':'<button class="btn gold small" data-act="pay" data-kind="carnet" data-cid="'+c.id+'" data-idx="'+n.i+'" data-amt="'+n.amt+'">Peye</button>')+'</div>')});
+ S.orders.filter(function(o){return o.clientId===m.id&&o.mode==='davans'&&!o.paid&&o.status!=='anile'}).forEach(function(o){var pend=S.payments.some(function(p){return p.orderId===o.id&&p.status==='pending'});due.push('<div class="row"><span class="sm" style="flex:1">Kòmand #'+o.id+' · <b>'+fmt(o.total)+'</b></span>'+(pend?'<span class="pill warn">An atant</span>':'<button class="btn gold small" data-act="pay" data-kind="order" data-oid="'+o.id+'" data-amt="'+o.total+'">Peye</button>')+'</div>')});
+ h+='<div class="card"><h3>Sa ki pou peye</h3>'+(due.length?due.join(''):'<p class="muted sm">Pa gen anyen pou peye kounye a.</p>')+'</div>';
+ var ps=S.payments.filter(function(p){return p.clientId===m.id}).sort(function(a,b){return a.createdAt<b.createdAt?1:-1});
+ h+='<div class="sec"><h2>Istorik peman</h2>'+(ps.length?'<div class="list">'+ps.map(function(p){return '<div class="item"><span class="t"><b style="font-size:.95rem">'+esc(payLabel(p))+' · '+fmt(p.amount)+'</b><span>'+p.method+(p.ref?' · ref '+esc(p.ref):'')+' · '+dstr(p.createdAt)+'</span></span>'+statusPill(p.status)+'</div>'}).join('')+'</div>':'<p class="muted">Pa gen peman ankò.</p>')+'</div>';
+ return h+'</main></div>'
+}
+function payLabel(p){
+ if(p.kind==='order')return 'Kòmand #'+p.orderId;
+ var c=S.carnets.find(function(c){return c.id===p.carnetId});return c?def(c).name+' · '+rangeLabel(c,p):'Peman'
+}
+
+/* ---------- admin ---------- */
+function branchOf(p){if(p.kind==='order'){var o=S.orders.find(function(o){return o.id===p.orderId});return o?o.branch:'store'}var c=S.carnets.find(function(c){return c.id===p.carnetId});return c?def(c).branch:'epargne'}
+function vAdmin(){
+ if(!adminOn)return '<div class="wrap"><main><h1>Administratè</h1><div class="note">Konekte sou paj Kont la ak nimewo administratè a.</div></main></div>';
+ var pend=S.payments.filter(function(p){return p.status==='pending'}).length;
+ var T=[['peman','Peman'+(pend?'<span class="badge">'+pend+'</span>':'')],['kliyan','Kliyan'+(S.clients.filter(function(c){return !c.hash}).length?'<span class="badge">'+S.clients.filter(function(c){return !c.hash}).length+'</span>':'')],['komand','Kòmand'],['demann','Demann'],['pwodwi','Pwodwi'],['rapo','Rapò'],['jounal','Jounal']];
+ var h='<div class="wrap"><main><h1>Tablo administratè</h1><div class="tabsx">'+T.map(function(t){return '<button class="'+(admTab===t[0]?'on':'')+'" data-act="atab" data-v="'+t[0]+'">'+t[1]+'</button>'}).join('')+'</div>';
+ if(admTab==='peman'){
+  var L=S.payments.slice().sort(function(a,b){return (a.status==='pending'?0:1)-(b.status==='pending'?0:1)||(a.createdAt<b.createdAt?1:-1)});
+  h+=L.length?L.map(function(p){return '<div class="card"><div class="row"><b style="flex:1">'+esc(cname(p.clientId))+'</b>'+statusPill(p.status)+'</div><div class="sm">'+esc(payLabel(p))+' · <b>'+fmt(p.amount)+'</b></div><div class="sm muted">'+p.method+' · '+esc(cname(p.clientId))+' · tel '+esc((S.clients.find(function(c){return c.id===p.clientId})||{}).tel||'')+' · '+dstr(p.createdAt)+'</div>'+(p.status==='pending'?'<div class="note sm">Kliyan an konfime ak kòd sekrè li. Verifye nan istorik '+p.method+' ou si lajan an rive anvan w aksepte.</div>':'')+(p.status==='pending'?cntField(p):'')+(p.status==='pending'?'<div class="row"><button class="btn ok small" data-act="pv" data-id="'+p.id+'">Aksepte</button><button class="btn bad small" data-act="pr" data-id="'+p.id+'">Refize</button></div>':'')+'</div>'}).join(''):'<p class="muted">Pa gen peman.</p>'
+ }
+ if(admTab==='kliyan'){
+  h+=lastReset?'<div class="note">Kòd sekrè pou <b>'+esc(lastReset.n)+'</b>: <b class="num">'+lastReset.pw+'</b><br>Voye l ba kliyan an. <a href="'+lastReset.wa+'" target="_blank" rel="noopener"><b>Voye sou WhatsApp</b></a></div>':'';
+  var CL=S.clients.slice().sort(function(a,b){return (a.hash?1:0)-(b.hash?1:0)});
+  h+=CL.length?CL.map(function(c){return '<div class="card"><div class="row"><b style="flex:1">'+esc(c.prenom+' '+c.nom)+'</b><span class="pill '+(c.hash?'ok':'warn')+'">'+(c.hash?'Kòd voye':'Ap tann kòd')+'</span></div><div class="sm muted">'+esc(c.num)+' · '+esc(c.tel)+' · '+esc(c.adr)+' · enskri '+dstr(c.createdAt)+'</div><button class="btn '+(c.hash?'ghost':'gold')+' small" data-act="reset" data-id="'+c.id+'">'+(c.hash?'Nouvo kòd sekrè':'Voye kòd sekrè')+'</button></div>'}).join(''):'<p class="muted">Pa gen kliyan ankò.</p>'
+ }
+ if(admTab==='komand'){
+  var ST=['nouvo','valide','preparasyon','afekte','livrezon','livre','anile'];
+  h+=S.orders.length?S.orders.map(function(o){return '<div class="card"><div class="row"><b style="flex:1">#'+o.id+' · '+esc(cname(o.clientId))+'</b><span class="num"><b>'+fmt(o.total)+'</b></span></div><div class="sm">'+o.items.map(function(i){return esc(i.qty+'× '+i.name+(i.opt?' ('+i.opt+')':''))}).join(', ')+'</div><div class="sm muted">'+esc(o.adr)+' · '+esc(o.tel)+' · '+(o.mode==='davans'?(o.paid?'peye':'davans, poko peye'):'peman lè livrezon')+'</div><div class="grid2"><div class="field"><label>Estati</label><select data-ch="ostatus" data-id="'+o.id+'">'+ST.map(function(s){return '<option'+(s===o.status?' selected':'')+'>'+s+'</option>'}).join('')+'</select></div><div class="field"><label>Livrè</label><input data-ch="odriver" data-id="'+o.id+'" value="'+esc(o.driver||'')+'"></div></div><div class="field"><label>Prèv livrezon</label><input data-ch="oproof" data-id="'+o.id+'" value="'+esc(o.proof||'')+'"></div><div class="row sm"><label class="chk"><input type="checkbox" data-ch="ocoll" data-id="'+o.id+'"'+(o.collected?' checked':'')+'> Lajan ankese</label><label class="chk"><input type="checkbox" data-ch="orem" data-id="'+o.id+'"'+(o.remitted?' checked':'')+'> Remèt administratè a</label></div></div>'}).join(''):'<p class="muted">Pa gen kòmand.</p>'
+ }
+ if(admTab==='demann'){
+  h+=S.requests.length?S.requests.map(function(r){return '<div class="card"><div class="row"><b style="flex:1">'+esc(cname(r.clientId))+' · '+(r.type==='idea'?'Lide biznis':'Demann')+'</b><span class="pill warn">'+r.status+'</span></div><div class="sm">'+esc(r.text)+'</div>'+(r.wa?'<div class="sm muted">WhatsApp: '+esc(r.wa)+' · '+esc(r.adr||'')+'</div>':'')+'<form class="sec" data-form="reply" data-id="'+r.id+'"><div class="field"><label>Repons (deskripsyon, pwodwi, kantite, pri, kondisyon)</label><textarea name="reply">'+esc(r.reply||'')+'</textarea></div><button class="btn small">Voye repons</button></form></div>'}).join(''):'<p class="muted">Pa gen demann.</p>'
+ }
+ if(admTab==='pwodwi'){
+  h+='<form class="card" data-form="prod-add"><h3>Ajoute yon pwodwi</h3><div class="grid2"><div class="field"><label for="a-n">Non</label><input id="a-n" name="name" required></div><div class="field"><label for="a-c">Kategori</label><select id="a-c" name="cat">'+CATS.map(function(c){return '<option>'+c+'</option>'}).join('')+'</select></div><div class="field"><label for="a-p">Pri (G)</label><input id="a-p" name="price" type="number" min="0" required></div><div class="field"><label for="a-s">Stock</label><input id="a-s" name="stock" type="number" min="0" required></div><div class="field"><label for="a-z">Gwosè (separe ak vigil)</label><input id="a-z" name="sizes"></div><div class="field"><label for="a-k">Koulè (separe ak vigil)</label><input id="a-k" name="colors"></div><div class="field"><span class="lbl">Foto pwodwi (jiska 2 isit la, ou ka ajoute lòt apre)</span><div class="row"><label class="btn ghost small" for="a-f">Chwazi nan galri</label><input class="vh" id="a-f" name="photos" type="file" accept="image/*"><label class="btn ghost small" for="a-g">Pran yon foto</label><input class="vh" id="a-g" name="photos" type="file" accept="image/*" capture="environment"></div><small>Si galri a pa louvri, louvri sit la nan Chrome.</small></div></div><button class="btn gold">Ajoute</button></form>';
+  h+='<div class="sec"><h2>Katalòg</h2>'+S.products.map(function(p){var im=p.imgs||[],i0='-'+p.id,cs=CATS.indexOf(p.cat)<0?CATS.concat([p.cat]):CATS;return '<div class="card"><div class="row"><b style="flex:1">'+esc(p.name)+(p.sample?' <span class="pill">egzanp</span>':'')+'</b><button class="btn bad small" data-act="pdel" data-id="'+p.id+'">Efase</button></div>'
+   +(im.length?'<div class="ap">'+im.map(function(u,i){return '<span class="th"><img src="'+u+'" alt="Foto '+(i+1)+'"><button type="button" class="x" data-act="pimgdel" data-id="'+p.id+'" data-i="'+i+'" aria-label="Efase foto a">×</button></span>'}).join('')+'</div>':'<p class="sm muted">Pa gen foto ankò.</p>')
+   +(im.length<4?'<div class="field"><span class="lbl">Ajoute foto ('+im.length+'/4)</span><div class="row"><label class="btn ghost small" for="pf'+i0+'">Chwazi nan galri</label><input class="vh" id="pf'+i0+'" type="file" accept="image/*" data-ch="pimgadd" data-id="'+p.id+'"><label class="btn ghost small" for="pg'+i0+'">Pran yon foto</label><input class="vh" id="pg'+i0+'" type="file" accept="image/*" capture="environment" data-ch="pimgadd" data-id="'+p.id+'"></div><small>Si galri a pa louvri, louvri sit la nan Chrome.</small></div>':'<p class="sm muted">4 foto (maksimòm). Efase youn pou w ajoute yon lòt.</p>')
+   +'<div class="grid2"><div class="field"><label for="pn'+i0+'">Non</label><input id="pn'+i0+'" data-ch="pname" data-id="'+p.id+'" value="'+esc(p.name)+'"></div><div class="field"><label for="pc'+i0+'">Kategori</label><select id="pc'+i0+'" data-ch="pcat" data-id="'+p.id+'">'+cs.map(function(c){return '<option'+(c===p.cat?' selected':'')+'>'+esc(c)+'</option>'}).join('')+'</select></div><div class="field"><label for="pp'+i0+'">Pri (G)</label><input id="pp'+i0+'" type="number" min="0" data-ch="pprice" data-id="'+p.id+'" value="'+p.price+'"></div><div class="field"><label for="ps'+i0+'">Stock</label><input id="ps'+i0+'" type="number" min="0" data-ch="pstock" data-id="'+p.id+'" value="'+p.stock+'"></div><div class="field"><label for="pz'+i0+'">Gwosè (vigil)</label><input id="pz'+i0+'" data-ch="psizes" data-id="'+p.id+'" value="'+esc(p.sizes||'')+'"></div><div class="field"><label for="pk'+i0+'">Koulè (vigil)</label><input id="pk'+i0+'" data-ch="pcolors" data-id="'+p.id+'" value="'+esc(p.colors||'')+'"></div></div><p class="sm muted">Chanjman yo sove otomatikman lè w fini tape.</p></div>'}).join('')+'</div>';
+  h+='<form class="card" data-form="settings"><h3>Paramèt Chedoo Chips</h3><div class="grid2"><div class="field"><label for="s-p">Benefis revandè (%)</label><input id="s-p" name="pct" type="number" step="0.01" min="0" value="'+S.settings.pct+'"></div><div class="field"><label for="s-f">Frè livrezon (G)</label><input id="s-f" name="fee" type="number" min="0" value="'+S.settings.fee+'"></div></div><button class="btn small">Sove</button></form>'
+ }
+ if(admTab==='rapo'){
+  var B={epargne:0,carnet:0,saveurs:0,chedoo:0,store:0},tot=0;
+  S.payments.filter(function(p){return p.status==='valid'}).forEach(function(p){B[branchOf(p)]+=p.amount;tot+=p.amount});
+  var com=S.carnets.filter(function(c){return c.type==='epay'&&validCount(c)===200}).reduce(function(a,c){return a+totalSum(c)*0.1},0);
+  h+='<div class="tbl"><table><thead><tr><th>Branch</th><th>Peman valide</th></tr></thead><tbody>'+BR.filter(function(b){return b.k!=='delivery'}).map(function(b){return '<tr><td>'+b.n+'</td><td><b>'+fmt(B[b.k])+'</b></td></tr>'}).join('')+'<tr><td><b>Total</b></td><td><b>'+fmt(tot)+'</b></td></tr></tbody></table></div>';
+  h+='<div class="grid2"><div class="card"><div class="muted sm">Kliyan</div><div class="big num">'+S.clients.length+'</div></div><div class="card"><div class="muted sm">Peman an atant</div><div class="big num">'+pend+'</div></div><div class="card"><div class="muted sm">Komisyon 10% (kanè 200 kare fini)</div><div class="big num">'+fmt(com)+'</div></div><div class="card"><div class="muted sm">Kòmand</div><div class="big num">'+S.orders.length+'</div></div></div>';
+  var cash=S.orders.filter(function(o){return o.collected&&!o.remitted}).reduce(function(a,o){return a+o.total},0);
+  h+='<div class="note">Lajan ankese pa livrè ki poko remèt: <b>'+fmt(cash)+'</b></div>'
+ }
+ if(admTab==='jounal')h+=S.audit.length?'<div class="list">'+S.audit.slice(0,60).map(function(a){return '<div class="item"><span class="t"><b style="font-size:.92rem">'+esc(a.text)+'</b><span>'+new Date(a.t).toLocaleString('fr-FR')+'</span></span></div>'}).join('')+'</div>':'<p class="muted">Jounal la vid.</p>';
+ return h+'<p class="foot">Vèsyon demo: done yo sove sou aparèy sa a sèlman, epi modpas administratè a pa ranplase yon vrè sistèm sekirite sou sèvè.</p></main></div>'
+}
+
+/* ---------- modals ---------- */
+function modalHtml(){
+ if(!modal)return '';
+ if(modal.t==='pay'){
+  var x=modal.ctx;
+  return '<div class="scrim" data-act="scrim"><form class="sheet" data-form="pay"><div class="row"><h2 style="flex:1">Peye '+esc(x.label)+'</h2><button type="button" class="btn ghost small" data-act="close">Fèmen</button></div>'+(x.multi?'<div class="sm muted">Pwochen '+x.unit+': <b>'+fmt(x.amt)+'</b>. Ou ka peye plizyè '+x.unit+' alafwa.</div><div class="field"><label for="pm-a">Konbyen lajan w ap voye? (G)</label><input id="pm-a" name="amount" type="number" inputmode="numeric" min="'+x.amt+'" step="1" value="'+x.amt+'" required><small id="pm-est">'+estText(x,x.amt)+'</small></div>':'<div class="big num">'+fmt(x.amt)+'</div>')+'<label class="pay-opt"><input type="radio" name="m" value="NatCash" checked><span><b>NatCash</b><br><span class="num">'+NAT+'</span></span></label><label class="pay-opt"><input type="radio" name="m" value="MonCash"><span><b>MonCash</b><br><span class="num">'+MON+'</span></span></label><div class="field"><label for="pm-c">Kòd sekrè ou</label><input id="pm-c" name="code" type="password" autocomplete="off" required><small>Apre w fin fè transfè a, antre kòd sekrè administratè a te voye ba ou pou konfime peman an.</small></div><div class="note sm"><b>N.B.</b> Si w voye lajan an, men ou pa konfime l ak kòd sekrè ou, peman an poko valide.</div><button class="btn gold">Voye peman an</button></form></div>'
+ }
+ if(modal.t==='prod'){
+  var p=S.products.find(function(p){return p.id===modal.id});if(!p)return '';
+  var im=p.imgs||[],ix=Math.min(modal.i||0,Math.max(0,im.length-1));
+  var so=p.sizes?p.sizes.split(',').map(function(s){return s.trim()}).filter(Boolean):[],co=p.colors?p.colors.split(',').map(function(s){return s.trim()}).filter(Boolean):[];
+  return '<div class="scrim" data-act="scrim"><form class="sheet" data-form="cart-add" data-id="'+p.id+'"><div class="row"><h2 style="flex:1">'+esc(p.name)+'</h2><button type="button" class="btn ghost small" data-act="close">Fèmen</button></div>'+(im.length?'<img class="pimg" src="'+im[ix]+'" alt="'+esc(p.name)+'">'+(im.length>1?'<div class="thumbs">'+im.map(function(u,i){return '<img class="'+(i===ix?'on':'')+'" src="'+u+'" alt="Foto '+(i+1)+'" data-act="pimg" data-i="'+i+'">'}).join('')+'</div>':''):'<div class="ph prod" style="aspect-ratio:16/9;display:grid;place-items:center">foto pwodwi</div>')+'<div class="big num">'+fmt(p.price)+'</div><p class="sm muted">'+p.stock+' an stock · '+esc(p.cat)+'</p><div class="grid2">'+(so.length?'<div class="field"><label for="pd-s">Gwosè</label><select id="pd-s" name="size">'+so.map(function(s){return '<option>'+esc(s)+'</option>'}).join('')+'</select></div>':'')+(co.length?'<div class="field"><label for="pd-c">Koulè</label><select id="pd-c" name="color">'+co.map(function(s){return '<option>'+esc(s)+'</option>'}).join('')+'</select></div>':'')+'<div class="field"><label for="pd-q">Kantite</label><input id="pd-q" name="qty" type="number" min="1" max="'+Math.max(1,p.stock)+'" value="1"></div></div><button class="btn gold"'+(p.stock<1?' disabled':'')+'>Ajoute nan panye</button></form></div>'
+ }
+ if(modal.t==='cart'){
+  var m=me(),sum=S.cart.reduce(function(a,i){return a+i.price*i.qty},0);
+  return '<div class="scrim" data-act="scrim"><form class="sheet" data-form="checkout"><div class="row"><h2 style="flex:1">Panye</h2><button type="button" class="btn ghost small" data-act="close">Fèmen</button></div>'+(S.cart.length?S.cart.map(function(i,ix){return '<div class="row sm" style="justify-content:space-between"><span>'+esc(i.name+(i.opt?' ('+i.opt+')':''))+'</span><span class="row"><button type="button" class="btn ghost small" data-act="cq" data-i="'+ix+'" data-d="-1">−</button><b class="num">'+i.qty+'</b><button type="button" class="btn ghost small" data-act="cq" data-i="'+ix+'" data-d="1">+</button><span class="num" style="min-width:76px;text-align:right">'+fmt(i.price*i.qty)+'</span></span></div>'}).join('')+'<div class="row" style="justify-content:space-between"><b>Total</b><b class="big num">'+fmt(sum)+'</b></div>'+(m?'<div class="field"><label for="ck-a">Adrès livrezon</label><input id="ck-a" name="adr" value="'+esc(m.adr)+'" required></div><div class="field"><label for="ck-t">Nimewo WhatsApp</label><input id="ck-t" name="tel" value="'+esc(m.tel)+'" required></div><div class="field"><label for="ck-m">Peman</label><select id="ck-m" name="mode"><option value="davans">Davans (NatCash / MonCash)</option><option value="livrezon">Lè m resevwa</option></select></div><button class="btn gold">Voye kòmand lan</button>':needLogin()):'<p class="muted">Panye a vid.</p>')+'</form></div>'
+ }
+ return ''
+}
+
+/* ---------- shell ---------- */
+function render(){
+ var r=route(),m=me(),body;
+ var V={akey:vAkey,kont:vKont,epargne:vEpargne,carnet:vCarnet,saveurs:vSaveurs,chedoo:vChedoo,store:vStore,delivery:vDelivery,peman:vPeman,admin:vAdmin,sevis:vAkey};
+ if(r==='admin'&&!adminOn){r='akey'}
+ body=(V[r]||vAkey)();
+ var pend=S.payments.filter(function(p){return p.status==='pending'}).length;
+ var top='<header class="top"><div class="wrap"><div class="logo">R.C</div><div class="brand">R.C INTREPRISE<small>Gonaïves, Ayiti</small></div><span class="sp"></span>'+(adminOn?'<button class="chip on" data-act="adm">Administratè · Soti</button>':'')+'</div></header>';
+ var tabs=[['akey','Akèy'],['sevis','Sèvis'],['peman','Peman'],['kont','Kont']];if(adminOn)tabs.push(['admin','Admin'+(pend?'<span class="badge">'+pend+'</span>':'')]);
+ var isBr=['epargne','carnet','saveurs','chedoo','store','delivery'].indexOf(r)>-1;
+ var nav='<nav class="tabs"><div class="wrap">'+tabs.map(function(t){var href=t[0]==='sevis'?'#epargne':'#'+t[0];var on=t[0]===r||(t[0]==='sevis'&&isBr);return '<a href="'+href+'" class="'+(on?'on':'')+'">'+t[1]+'</a>'}).join('')+'</div></nav>';
+ var sub=isBr?'<div class="wrap" style="padding-top:14px"><div class="tabsx">'+BR.map(function(b){return '<button class="'+(b.k===r?'on':'')+'" data-go="'+b.k+'">'+b.n+'</button>'}).join('')+'</div></div>':'';
+ app.innerHTML=top+(storageOk?'':'<div class="wrap" style="padding-top:12px"><div class="note bad"><b>Atansyon:</b> navigatè a pa kite sit la sove done (foto, kliyan, peman). Louvri sit la nan Chrome, pa nan mòd prive.</div></div>')+sub+body+nav+modalHtml();
+ var k=document.getElementById('kout');if(k)calc()
+}
+function calc(){
+ var f=document.querySelector('[data-form=calc]');if(!f)return;
+ var q=+f.qty.value||0,b=+f.buy.value||0,s=+f.sell.value||0;
+ document.getElementById('kout').innerHTML='Kou total: <b>'+fmt(q*b)+'</b> · Revni: <b>'+fmt(q*s)+'</b> · Benefis: <b style="color:'+(s>=b?'var(--ok)':'var(--bad)')+'">'+fmt(q*(s-b))+'</b>'
+}
+function openPay(ctx){modal={t:'pay',ctx:ctx};render()}
+
+/* ---------- events ---------- */
+document.addEventListener('click',async function(e){
+ var g=e.target.closest('[data-go]');if(g){location.hash='#'+g.getAttribute('data-go');return}
+ var t=e.target.closest('[data-act]');if(!t)return;
+ var a=t.getAttribute('data-act'),id=t.getAttribute('data-id'),v=t.getAttribute('data-v');
+ if(a==='scrim'){if(e.target===t){modal=null;render()}return}
+ if(a==='close'){modal=null;render();return}
+ if(a==='ktab'){kTab=v;render();return}
+ if(a==='chtab'){chTab=v;render();return}
+ if(a==='atab'){admTab=v;render();return}
+ if(a==='scat'){storeCat=v;render();return}
+ if(a==='logout'){S.session=null;save();render();return}
+ if(a==='adm'){adminOn=false;location.hash='#akey';render();return}
+ if(a==='share'){try{await navigator.clipboard.writeText(SHARE_URL);toast('Lyen an kopye')}catch(x){toast('Kopye lyen an: '+SHARE_URL)}return}
+ if(a==='copy'){try{await navigator.clipboard.writeText(v);toast('Nimewo a kopye')}catch(x){toast('Kopye nimewo a: '+v)}return}
+ if(a==='prod'){modal={t:'prod',id:id,i:0};render();return}
+ if(a==='pimg'){modal.i=+t.getAttribute('data-i');render();return}
+ if(a==='pimgdel'){var pp=S.products.find(function(p){return p.id===id});if(pp&&pp.imgs){pp.imgs.splice(+t.getAttribute('data-i'),1);audit('Foto efase: '+pp.name);save();render()}return}
+ if(a==='cart'){modal={t:'cart'};render();return}
+ if(a==='cq'){var it=S.cart[+t.getAttribute('data-i')];it.qty+=+t.getAttribute('data-d');if(it.qty<1)S.cart.splice(+t.getAttribute('data-i'),1);save();render();return}
+ if(a==='pay'){
+  var k=t.getAttribute('data-kind'),amt=+t.getAttribute('data-amt');
+  if(k==='order')openPay({kind:'order',orderId:+t.getAttribute('data-oid'),amt:amt,label:'kòmand #'+t.getAttribute('data-oid')});
+  else{var c=S.carnets.find(function(c){return c.id===+t.getAttribute('data-cid')}),i=+t.getAttribute('data-idx');openPay({kind:'carnet',carnetId:c.id,index:i,amt:amt,label:def(c).name+' · '+stepLabel(c,i),multi:(c.type!=='pen'&&i>0),unit:def(c).unit.toLowerCase()})}
+  return}
+ if(a==='req-ans'){var r=S.requests.find(function(r){return r.id===+id});r.status=v;note(r.clientId,'Ou '+(v==='aksepte'?'aksepte':'refize')+' pwopozisyon an.');save();render();return}
+ if(a==='pv'||a==='pr'){
+  var p=S.payments.find(function(p){return p.id===+id});if(!p||p.status!=='pending')return;
+  if(a==='pv'){
+   var dup=S.payments.some(function(q){return q.id!==p.id&&q.status==='valid'&&p.ref&&q.ref&&q.ref.toLowerCase()===p.ref.toLowerCase()});
+   if(dup){toast('Nimewo tranzaksyon sa a deja valide.');return}
+   var cc=S.carnets.find(function(c){return c.id===p.carnetId});
+   if(p.kind!=='order'&&cc&&cc.type!=='pen'&&p.index>0){var ci=document.getElementById('cnt-'+p.id),cn=ci?Math.floor(+ci.value):(p.count||1);if(!(cn>=1)||cn>def(cc).n-p.index+1){toast('Kantite a pa valab.');return}p.count=cn}
+   p.status='valid';p.validatedAt=new Date().toISOString();
+   if(p.kind==='order'){var o=S.orders.find(function(o){return o.id===p.orderId});if(o){o.paid=true;if(o.status==='nouvo')o.status='valide'}}
+   note(p.clientId,'Peman '+fmt(p.amount)+' valide ('+payLabel(p)+').');audit('Peman #'+p.id+' valide ('+fmt(p.amount)+', '+cname(p.clientId)+')')
+  }else{p.status='refused';note(p.clientId,'Peman '+fmt(p.amount)+' refize. Kontakte administratè a sou WhatsApp.');audit('Peman #'+p.id+' refize ('+cname(p.clientId)+')')}
+  save();render();return}
+ if(a==='reset'){var c2=S.clients.find(function(c){return c.id===+id}),pw=String(Math.floor(100000+Math.random()*900000));c2.hash=await sha(pw);lastReset={n:c2.prenom+' '+c2.nom,pw:pw,wa:'https://wa.me/509'+digits(c2.tel).slice(-8)+'?text='+encodeURIComponent('Bonjou '+c2.prenom+', men kòd sekrè ou pou R.C INTREPRISE: '+pw)};note(c2.id,'Administratè a voye kòd sekrè ou. Antre l nan paj Kont lan.');audit('Kòd sekrè kreye pou '+c2.prenom+' '+c2.nom);save();render();return}
+ if(a==='pdel'){S.products=S.products.filter(function(p){return p.id!==id});audit('Pwodwi efase: '+id);save();render();return}
+});
+document.addEventListener('change',async function(e){
+ var t=e.target,k=t.getAttribute&&t.getAttribute('data-ch');if(!k)return;
+ var id=t.getAttribute('data-id');
+ if(k[0]==='o'){var o=S.orders.find(function(o){return o.id===+id});
+  if(k==='ostatus'){o.status=t.value;note(o.clientId,'Kòmand #'+o.id+': '+t.value);audit('Kòmand #'+o.id+' → '+t.value)}
+  if(k==='odriver')o.driver=t.value;if(k==='oproof')o.proof=t.value;if(k==='ocoll')o.collected=t.checked;if(k==='orem')o.remitted=t.checked}
+ if(k[0]==='p'){
+  var p=S.products.find(function(p){return p.id===id});if(!p)return;
+  if(k==='pprice'){var v=Math.max(0,+t.value||0);audit('Pri '+p.name+': '+p.price+' → '+v);p.price=v;p.sample=false;toast('Pri chanje: '+fmt(v))}
+  else if(k==='pstock'){p.stock=Math.max(0,+t.value||0);toast('Stock sove')}
+  else if(k==='pname'){p.name=t.value.trim()||p.name;toast('Non sove')}
+  else if(k==='pcat'){p.cat=t.value;toast('Kategori sove')}
+  else if(k==='psizes'){p.sizes=t.value;toast('Gwosè sove')}
+  else if(k==='pcolors'){p.colors=t.value;toast('Koulè sove')}
+  else if(k==='pimgadd'){var fl=Array.prototype.slice.call(t.files||[]),n0=(p.imgs=p.imgs||[]).length;for(var j=0;j<fl.length&&p.imgs.length<4;j++){try{p.imgs.push(await shrink(fl[j]))}catch(er){}}
+   if(p.imgs.length===n0){toast('Foto a pa ka li. Eseye yon lòt foto, oswa itilize "Pran yon foto".');return}
+   if(!save()){p.imgs.length=n0;toast('Pa gen ase espas pou foto a.');render();return}
+   audit('Foto ajoute: '+p.name);render();toast('Foto ajoute.');return}
+ }
+ save();if(k==='ostatus')render()
+});
+document.addEventListener('input',function(e){
+ if(e.target.closest&&e.target.closest('[data-form=calc]'))calc();
+ if(e.target.id==='pm-a'&&modal&&modal.t==='pay'){var el=document.getElementById('pm-est'),v=Math.round(+e.target.value)||0;if(el)el.innerHTML=v>=modal.ctx.amt?estText(modal.ctx,v):'Montan an dwe omwen '+fmt(modal.ctx.amt)+'.'}
+});
+window.addEventListener('hashchange',function(){modal=null;render();window.scrollTo(0,0)});
+
+document.addEventListener('submit',async function(e){
+ var f=e.target,n=f.getAttribute('data-form');if(!n)return;e.preventDefault();
+ var fd=new FormData(f),g=function(k){return String(fd.get(k)||'').trim()},m=me();
+ if(n==='register'){
+  var tel=digits(g('tel'));if(tel.length<8){toast('Nimewo telefòn pa valab.');return}
+  if(tel===ADM_TEL){toast('Nimewo sa a pa ka itilize pou yon kliyan.');return}
+  if(S.clients.some(function(c){return digits(c.tel)===tel})){toast('Nimewo sa a gen yon kont deja. Kontakte administratè a pou kòd ou.');return}
+  var c={id:uid('c'),prenom:g('prenom'),nom:g('nom'),tel:g('tel'),adr:g('adr'),hash:null,createdAt:new Date().toISOString()};
+  c.num='RC-'+pad(c.id,4);S.clients.push(c);audit('Nouvo enskripsyon: '+c.prenom+' '+c.nom+' ('+c.num+'), ap tann kòd sekrè');save();regDone=true;kTab='log';render();return}
+ if(n==='login'){
+  var tl=digits(g('tel')),cd=g('code'),hh=await sha(tl===ADM_TEL?cd.toUpperCase():cd);
+  if(tl===ADM_TEL){if(hh===ADM_HASH){adminOn=true;S.session=null;audit('Administratè konekte');save();location.hash='#admin';render()}else toast('Telefòn oswa kòd pa kòrèk.');return}
+  var cc=S.clients.find(function(c){return digits(c.tel)===tl});
+  if(!cc){toast('Nimewo sa a pa gen kont. Enskri dabò.');return}
+  if(!cc.hash){toast('Administratè a poko voye kòd ou. Kontakte nou sou WhatsApp '+WA+'.');return}
+  if(cc.hash!==hh){toast('Telefòn oswa kòd pa kòrèk.');return}
+  S.session=cc.id;regDone=false;save();render();return}
+ if(!m&&['register','login','reply','prod-add','settings','calc','cart-add'].indexOf(n)<0){toast('Konekte dabò.');return}
+ if(n==='start-ep'||n==='start-epay'){
+  var c3={id:uid('k'),clientId:m.id,type:n==='start-ep'?'epargne':'epay',createdAt:new Date().toISOString()};if(c3.type==='epargne')c3.plan=+g('plan');else c3.value=+g('v');
+  S.carnets.push(c3);audit('Nouvo kanè #'+c3.id+' ('+def(c3).name+', '+cname(m.id)+')');save();
+  var nx=nextStep(c3);if(nx&&nx.i===0)openPay({kind:'carnet',carnetId:c3.id,index:0,amt:nx.amt,label:'frè enskripsyon '+def(c3).name});else render();return}
+ if(n==='start-pen'){var c4={id:uid('k'),clientId:m.id,type:'pen',createdAt:new Date().toISOString()};S.carnets.push(c4);audit('Nouvo kanè Pen ak ze #'+c4.id+' ('+cname(m.id)+')');save();openPay({kind:'carnet',carnetId:c4.id,index:0,amt:1500,label:'frè enskripsyon Pen ak ze'});return}
+ if(n==='pay'){
+  var x=modal.ctx,amount=x.amt,count=1;
+  if((await sha(g('code')))!==m.hash){toast('Kòd sekrè pa kòrèk. Peman an pa voye.');return}
+  if(x.multi){var c0=S.carnets.find(function(c){return c.id===x.carnetId}),D0=def(c0);amount=Math.round(+g('amount'));
+   if(!(amount>=x.amt)){toast('Montan an dwe omwen '+fmt(x.amt)+'.');return}
+   var rest=costFor(c0,x.index,D0.n-x.index+1);if(amount>rest){toast('Montan an depase sa ki rete ('+fmt(rest)+').');return}
+   count=stepsFor(c0,x.index,amount)}
+  var pm={id:uid('p'),clientId:m.id,kind:x.kind==='order'?'order':(x.index===0?'fee':def(S.carnets.find(function(c){return c.id===x.carnetId})).kind),carnetId:x.carnetId||null,orderId:x.orderId||null,index:x.index==null?null:x.index,amount:amount,count:count,method:g('m'),ref:'',status:'pending',createdAt:new Date().toISOString()};
+  S.payments.push(pm);note(m.id,'Peman '+fmt(pm.amount)+' voye ak kòd sekrè ou ('+payLabel(pm)+'). An atant validasyon.');audit('Peman #'+pm.id+' voye ('+fmt(pm.amount)+', '+cname(m.id)+')');save();modal=null;render();toast('Peman voye. An atant validasyon.');return}
+ if(n==='req-sav'||n==='store-req'){S.requests.push({id:uid('r'),clientId:m.id,type:'sav',store:n==='store-req',text:(n==='req-sav'?g('act')+': ':'')+g('text'),status:'nouvo',createdAt:new Date().toISOString()});audit('Nouvo demann ('+cname(m.id)+')');save();render();toast('Demann voye.');return}
+ if(n==='idea'){S.requests.push({id:uid('r'),clientId:m.id,type:'idea',text:g('text'),adr:g('adr'),wa:g('wa'),status:'nouvo',createdAt:new Date().toISOString()});audit('Nouvo lide biznis ('+cname(m.id)+')');save();render();toast('Lide ou voye. Administratè a ap kontakte w sou WhatsApp.');return}
+ if(n==='reply'){var rq=S.requests.find(function(r){return r.id===+f.getAttribute('data-id')});rq.reply=g('reply');rq.status='repons';note(rq.clientId,'Administratè a reponn demann #'+rq.id+'.');audit('Repons demann #'+rq.id);save();render();return}
+ if(n==='ch-order'){
+  var mode=f.getAttribute('data-mode'),it,tot;
+  if(mode==='detay'){var q=Math.max(1,+g('qty')),pr=+g('item');it=[{name:'Sache chips '+pr+' G',qty:q,price:pr}];tot=pr*q}
+  else{var a=+g('item');it=[{name:'Achte an gwo',qty:1,price:a}];tot=a}
+  var o={id:uid('o'),clientId:m.id,branch:'chedoo',items:it,fee:S.settings.fee,total:tot+S.settings.fee,adr:g('adr'),tel:g('tel'),mode:g('mode'),status:'nouvo',paid:false,createdAt:new Date().toISOString()};
+  S.orders.push(o);audit('Nouvo kòmand Chedoo #'+o.id);save();
+  if(o.mode==='davans')openPay({kind:'order',orderId:o.id,amt:o.total,label:'kòmand #'+o.id});else{render();toast('Kòmand voye.')}return}
+ if(n==='cart-add'){var p=S.products.find(function(p){return p.id===f.getAttribute('data-id')}),opt=[g('size'),g('color')].filter(Boolean).join(', '),q2=Math.max(1,+g('qty'));
+  var ex=S.cart.find(function(i){return i.pid===p.id&&i.opt===opt});if(ex)ex.qty+=q2;else S.cart.push({pid:p.id,name:p.name,opt:opt,price:p.price,qty:q2});save();modal=null;render();toast('Ajoute nan panye.');return}
+ if(n==='checkout'){
+  var o2={id:uid('o'),clientId:m.id,branch:'store',items:S.cart.map(function(i){return{name:i.name,opt:i.opt,qty:i.qty,price:i.price}}),fee:0,total:S.cart.reduce(function(a,i){return a+i.price*i.qty},0),adr:g('adr'),tel:g('tel'),mode:g('mode'),status:'nouvo',paid:false,createdAt:new Date().toISOString()};
+  S.cart=[];S.orders.push(o2);audit('Nouvo kòmand Store #'+o2.id);save();
+  if(o2.mode==='davans')openPay({kind:'order',orderId:o2.id,amt:o2.total,label:'kòmand #'+o2.id});else{modal=null;render();toast('Kòmand voye.')}return}
+ if(n==='prod-add'){
+  var files=fd.getAll?fd.getAll('photos').filter(function(x){return x&&x.size}):[],imgs=[];
+  for(var fi=0;fi<Math.min(files.length,4);fi++){try{imgs.push(await shrink(files[fi]))}catch(er){}}
+  S.products.push({id:'p'+Date.now(),name:g('name'),cat:g('cat'),price:+g('price'),stock:+g('stock'),sizes:g('sizes'),colors:g('colors'),imgs:imgs});
+  audit('Nouvo pwodwi: '+g('name'));
+  if(!save()){S.products.pop();toast('Pa gen ase espas pou foto yo. Eseye ak mwens foto.');return}
+  render();toast(files.length&&!imgs.length?'Pwodwi ajoute, men foto a pa ka li. Ajoute l apre.':'Pwodwi ajoute.');return}
+ if(n==='settings'){S.settings.pct=+g('pct');S.settings.fee=+g('fee');audit('Paramèt Chedoo chanje (benefis '+S.settings.pct+'%, livrezon '+S.settings.fee+' G)');save();render();toast('Sove.');return}
+});
+render();
+})();
+</script>
+</body></html>
